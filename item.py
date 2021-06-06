@@ -17,7 +17,7 @@ def offer_eligible(user_n_items: np.uint64, offer_n_items: np.uint64) -> bool:
 class Item:
     """
     Holds number of items and total price \n
-    for user picked items an item-code \n
+    for user picked items of an item-code \n
     __count: numpy.uint64 \n
     __total: float \n
     """
