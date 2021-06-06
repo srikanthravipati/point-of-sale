@@ -1,4 +1,4 @@
-name: Python package
+name: point-of-sale-CI
 
 on: [push, pull_request]
 
