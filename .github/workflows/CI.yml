@@ -7,7 +7,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: [3.8]
 
     runs-on: ${{ matrix.os }}
@@ -32,6 +32,9 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: test
         run: |
-          export PYTHONPATH=$(pwd)
-          echo $PYTHONPATH
+          if: {{ matrix.os != 'windows-latest' }}
+            export PYTHONPATH=$(pwd)
+            echo $PYTHONPATH
+          if: {{ matrix.os == 'windows-latest' }}
+            $Env:PYTHONPATH = (Get-Location)
           pytest
