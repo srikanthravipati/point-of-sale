@@ -36,3 +36,7 @@ jobs:
           export PYTHONPATH=$(pwd)
           echo $PYTHONPATH
           pytest
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          $Env:PYTHONPATH = Get-Location
+          pytest
