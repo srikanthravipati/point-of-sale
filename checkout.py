@@ -46,6 +46,11 @@ def checkout(user_items: List[str], item_price_s: Dict[str, float]) -> float:
 
 
 class Checkout:
+    """
+    Holds basket items count and total for each \n
+    item-code available in the inventory
+    """
+
     items: Dict[str, Item]
 
     def __init__(self, item_price_s: Dict[str, float]):
