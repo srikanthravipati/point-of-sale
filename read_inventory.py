@@ -35,17 +35,18 @@ def read_inventory(inventory_file, inventory_items: Dict[str, FullInfo]):
                 )
             item_code = split_line[0]
             item_name = split_line[1]
-            n_items = np.uint64(split_line[2])
+            offer_n_items = np.uint64(split_line[2])
 
             offer_running = False
-            if n_items > 0:
+            if offer_n_items > 0:
                 offer_running = True
             else:
-                n_items = UINT64_MAX
+                offer_n_items = UINT64_MAX
 
-            coeff_a = float(split_line[3])
-            coeff_b = float(split_line[4])
+            offer_coeff_a = float(split_line[3])
+            offer_coeff_b = float(split_line[4])
 
             inventory_items[item_code] = FullInfo(
-                BasicInfo(item_name), Offer(offer_running, n_items, coeff_a, coeff_b)
+                BasicInfo(item_name),
+                Offer(offer_running, offer_n_items, offer_coeff_a, offer_coeff_b),
             )
