@@ -52,7 +52,7 @@ class Checkout:
         self.items = {}
         set_inventory_price_and_reduction_s(item_price_s)
 
-    def scan_item(self, item_code):
+    def scan_item(self, item_code: str):
         if item_code in INVENTORY_ITEMS:
 
             if item_code not in self.items:
