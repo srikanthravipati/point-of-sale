@@ -4,9 +4,14 @@ from inventory_container import INVENTORY_ITEMS
 from item import Item, items_total
 from read_inventory import read_inventory
 
-inventory_file = open("inventory.txt", "r")
+INVENTORY_FILE_NAME = "inventory.txt"
 
-read_inventory(inventory_file, INVENTORY_ITEMS)
+try:
+    inventory_file = open(INVENTORY_FILE_NAME, "r")
+    read_inventory(inventory_file, INVENTORY_ITEMS)
+except FileNotFoundError:
+    print(f"Inventory file {INVENTORY_FILE_NAME} is not found")
+    raise
 
 
 def set_inventory_price_and_reduction_s(item_price_s: Dict[str, float]) -> None:
