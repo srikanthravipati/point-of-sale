@@ -1,0 +1,8 @@
+Code  Name  NItemsOffer ReductionCoeffs      
+
+ A    Apple     3          1     0           
+ 
+ B    Banana    3          3   -100          
+
+ P    Pear      0          0     0           
+
