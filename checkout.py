@@ -1,12 +1,11 @@
 from typing import Dict, List
 
+from inventory_container import INVENTORY_ITEMS
 from item import Item, items_total
-from item_full_info import FullInfo
 from read_inventory import read_inventory
 
 inventory_file = open("inventory.txt", "r")
 
-INVENTORY_ITEMS: Dict[str, FullInfo] = {}
 read_inventory(inventory_file, INVENTORY_ITEMS)
 
 
