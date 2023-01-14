@@ -14,14 +14,14 @@ except FileNotFoundError:
     raise
 
 
-def set_inventory_price_and_reduction_s(item_price_s: Dict[str, float]) -> None:
+def set_inventory_price_and_discount_s(item_price_s: Dict[str, float]) -> None:
     """
     Take price for each item-code from item_price_s \n
     and set price and reduction for INVENTORY_ITEMS
     """
     for item_code in item_price_s:
         price = item_price_s[item_code]
-        INVENTORY_ITEMS[item_code].set_price_and_reduction(price)
+        INVENTORY_ITEMS[item_code].set_price_and_discount(price)
 
 
 def checkout(user_items: List[str], item_price_s: Dict[str, float]) -> float:
@@ -31,7 +31,7 @@ def checkout(user_items: List[str], item_price_s: Dict[str, float]) -> float:
     :return: total
     """
     items: Dict[str, Item] = {}
-    set_inventory_price_and_reduction_s(item_price_s)
+    set_inventory_price_and_discount_s(item_price_s)
 
     for item_code in user_items:
         if item_code in INVENTORY_ITEMS:
@@ -59,7 +59,7 @@ class Checkout:
 
     def __init__(self, item_price_s: Dict[str, float]):
         self.items = {}
-        set_inventory_price_and_reduction_s(item_price_s)
+        set_inventory_price_and_discount_s(item_price_s)
 
     def scan_item(self, item_code: str):
         if item_code in INVENTORY_ITEMS:
