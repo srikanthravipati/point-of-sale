@@ -21,12 +21,6 @@ class FullInfo:
         self.basic_info.print()
         self.offer.print()
 
-    def set_price(self, price: float) -> None:
-        self.basic_info.set_price(price)
-
-    def set_reduction(self) -> None:
-        self.offer.set_reduction(self.basic_info.get_price())
-
-    def set_price_and_reduction(self, price: float) -> None:
-        self.set_price(price)
-        self.set_reduction()
+    def set_price_and_discount(self, price: float) -> None:
+        self.basic_info.price = price
+        self.offer.discount = self.offer.calculate_discount(price)

@@ -9,18 +9,25 @@ class BasicInfo:
     __price: float
 
     def __init__(self, name: str, price: float = 0.0):
-        self.__name = name
-        self.__price = price
+        self.name = name
+        self.price = price
 
     def print(self) -> None:
-        print(f"Name  : {self.__name}")
-        print(f"Price : {self.__price} Pence")
+        print(f"Name  : {self.name}")
+        print(f"Price : {self.price} Pence")
 
-    def get_name(self) -> str:
+    @property
+    def name(self) -> str:
         return self.__name
 
-    def get_price(self) -> float:
+    @name.setter
+    def name(self, value: str) -> str:
+        self.__name = value
+
+    @property
+    def price(self) -> float:
         return self.__price
 
-    def set_price(self, price: float) -> None:
-        self.__price = price
+    @price.setter
+    def price(self, value: float) -> None:
+        self.__price = value
