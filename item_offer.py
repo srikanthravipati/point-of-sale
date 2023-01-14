@@ -14,7 +14,7 @@ class Offer:
     __running: bool
     __n_items: np.uint64
     __coeffs: np.ndarray
-    __reduction: float
+    __discount: float
 
     def __init__(
         self,
@@ -26,7 +26,7 @@ class Offer:
         self.__running = running
         self.__n_items = n_items
         self.__coeffs = np.array([coeff_a, coeff_b])
-        self.__reduction = 0.0
+        self.__discount = 0.0
 
     def print(self) -> None:
         if self.__running:
@@ -35,16 +35,24 @@ class Offer:
                 + f"is : {self.__reduction} Pence"
             )
 
-    def is_running(self) -> bool:
+    @property 
+    def running(self) -> bool:
         return self.__running
 
-    def get_n_items(self) -> np.uint64:
+    @property
+    def n_items(self) -> np.uint64:
         return self.__n_items
 
-    def get_reduction(self) -> float:
-        return self.__reduction
+    @property
+    def discount(self) -> float:
+        return self.__discount
 
-    def set_reduction(self, price: float):
-        reduction = self.__coeffs[0] * price + self.__coeffs[1]
-        assert reduction >= 0.0
-        self.__reduction = reduction
+    def calculate_discount(self, price: float) -> float:
+        if self.running:
+            return self.__coeffs[0] * price + self.__coeffs[1]
+        else:
+            return 0.0
+
+    @discount.setter
+    def discount(self, value: float) -> float:
+        self.__discount = value
