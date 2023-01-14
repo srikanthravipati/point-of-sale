@@ -29,36 +29,42 @@ class Item:
         self.__count = np.uint64(0)
         self.__total = 0.0
 
-    def get_count(self) -> np.uint64:
-        return self.__count
-
-    def get_total(self) -> float:
-        return self.__total
-
     def print(self) -> None:
         print(f"Count : {self.__count}")
         print(f"Total : {self.__total}")
 
-    def increase_one_count(self) -> None:
+    @property
+    def count(self) -> np.uint64:
+        return self.__count
+
+    def incr_count_by_one(self):
         self.__count += np.uint64(1)
 
-    def increase_total_by_unit_price(self, price: float) -> None:
-        self.__total += price
+    @property
+    def total(self) -> float:
+        return self.__total
 
-    def apply_offer(self, reduction: float) -> None:
-        self.__total -= reduction
+    @total.setter
+    def total(self, value: float) -> None:
+        self.__total = value
+
+    def add_item_price_to_total(self, unit_price):
+        self.total += unit_price
+
+    def apply_discount(self, discount: float) -> None:
+        self.total -= discount
 
     def scan_item(self, basic_info: BasicInfo, offer: Offer) -> None:
-        self.increase_one_count()
-        self.increase_total_by_unit_price(basic_info.get_price())
+        self.incr_count_by_one()
+        self.add_item_price_to_total(basic_info.price)
 
-        if offer.is_running():
-            if offer_eligible(self.__count, offer.get_n_items()):
-                self.apply_offer(offer.get_reduction())
+        if offer.running:
+            if offer_eligible(self.count, offer.n_items):
+                self.apply_discount(offer.discount)
 
 
 def items_total(items: Dict[str, Item]) -> float:
     total = 0.0
     for item_code in items:
-        total += items[item_code].get_total()
+        total += items[item_code].total
     return total
