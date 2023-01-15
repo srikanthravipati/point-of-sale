@@ -3,7 +3,7 @@ from item_basic_info import BasicInfo
 from item_offer import Offer
 
 
-class FullInfo(BasicInfo, Offer):
+class ItemInfo(BasicInfo, Offer):
     """
     Holds BasicInfo and Offer for an item-code
     basic_info: BasicInfo
@@ -31,4 +31,4 @@ class FullInfo(BasicInfo, Offer):
 
     def set_price_and_discount(self, price: float) -> None:
         self.price = price
-        self.discount = super(FullInfo, self).calculate_discount(price)
+        self.discount = super(ItemInfo, self).calculate_discount(price)
