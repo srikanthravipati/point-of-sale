@@ -1,4 +1,6 @@
 import numpy as np
+from numpy import float64
+from numpy.typing import NDArray
 
 UINT64_MAX = np.iinfo(np.uint64).max
 
@@ -42,6 +44,10 @@ class Offer:
     @property
     def n_items(self) -> np.uint64:
         return self.__n_items
+
+    @property
+    def coeffs(self) -> NDArray[float64]:
+        return self.__coeffs
 
     @property
     def discount(self) -> float:
