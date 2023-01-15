@@ -45,7 +45,7 @@ class UserItem:
     def apply_discount(self, discount: float) -> None:
         self.total -= discount
 
-    def scan_item(self, item_info: ItemInfo) -> None:
+    def scan(self, item_info: ItemInfo) -> None:
         self.incr_count_by_one()
         self.add_item_price_to_total(item_info.price)
         if item_info.is_discount_valid(self.count):

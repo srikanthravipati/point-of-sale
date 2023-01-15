@@ -18,7 +18,7 @@ class TestCheckout(unittest.TestCase):
         Checkout_ = Checkout(item_price_s)
 
         for item in user_items:
-            Checkout_.scan_item(item)
+            Checkout_.scan(item)
 
         self.assertLessEqual(abs(Checkout_.total() - 155.0), float_info.epsilon)
 

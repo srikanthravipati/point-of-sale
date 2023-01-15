@@ -30,7 +30,7 @@ def update_user_items(
 ) -> None:
     if item_code not in user_items:
         user_items[item_code] = UserItem()
-    user_items[item_code].scan_item(item_info)
+    user_items[item_code].scan(item_info)
 
 
 def item_scanned(item_code: str, user_items: Dict[str, UserItem]) -> None:
@@ -69,9 +69,9 @@ class Checkout:
     def update_user_items(self, item_code: str, item_info: ItemInfo) -> None:
         if item_code not in self.user_items:
             self.user_items[item_code] = UserItem()
-        self.user_items[item_code].scan_item(item_info)
+        self.user_items[item_code].scan(item_info)
 
-    def scan_item(self, item_code: str) -> None:
+    def scan(self, item_code: str) -> None:
         if item_code in INVENTORY_ITEMS:
             self.update_user_items(item_code, INVENTORY_ITEMS[item_code])
         else:
