@@ -7,14 +7,6 @@ user_items = ["B", "A", "B", "P", "B"]
 item_price_s = {"A": 25, "B": 40, "P": 30}
 
 
-def test_set_inventory_price_and_discount_s():
-    with patch("checkout.ItemInfo.set_price_and_discount", MagicMock()):
-        from checkout import ItemInfo, set_inventory_price_and_discount_s
-
-        set_inventory_price_and_discount_s(item_price_s)
-        assert ItemInfo.set_price_and_discount.call_count == 3
-
-
 class TestCheckout(TestCase):
     # version 1.0
     def test_checkout(self):

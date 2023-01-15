@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 from item_info import ItemInfo
-from inventory_container import INVENTORY_ITEMS
+from inventory_container import INVENTORY_ITEMS, set_inventory_price_and_discount_s
 from user_item import UserItem, user_items_total
 from read_inventory import read_inventory
 
@@ -13,16 +13,6 @@ try:
 except FileNotFoundError:
     print(f"Inventory file {INVENTORY_FILE_NAME} is not found")
     raise
-
-
-def set_inventory_price_and_discount_s(item_price_s: Dict[str, float]) -> None:
-    """
-    Take price for each item-code from item_price_s \n
-    and set price and reduction for INVENTORY_ITEMS
-    """
-    for item_code in item_price_s:
-        price = item_price_s[item_code]
-        INVENTORY_ITEMS[item_code].set_price_and_discount(price)
 
 
 def update_user_items(
