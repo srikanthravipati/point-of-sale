@@ -47,6 +47,10 @@ def read_inventory(inventory_file, inventory_items: Dict[str, FullInfo]):
             offer_coeff_b = float(split_line[4])
 
             inventory_items[item_code] = FullInfo(
-                BasicInfo(item_name),
-                Offer(offer_running, offer_n_items, offer_coeff_a, offer_coeff_b),
+                item_name,
+                0.0,
+                offer_running,
+                offer_n_items,
+                offer_coeff_a,
+                offer_coeff_b,
             )

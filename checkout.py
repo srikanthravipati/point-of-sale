@@ -39,9 +39,7 @@ def checkout(user_items: List[str], item_price_s: Dict[str, float]) -> float:
             if item_code not in items:
                 items[item_code] = Item()
 
-            items[item_code].scan_item(
-                INVENTORY_ITEMS[item_code].basic_info, INVENTORY_ITEMS[item_code].offer
-            )
+            items[item_code].scan_item(INVENTORY_ITEMS[item_code])
         else:
             raise KeyError(f"Unexpected Item Code : {item_code}")
 
@@ -67,9 +65,7 @@ class Checkout:
             if item_code not in self.items:
                 self.items[item_code] = Item()
 
-            self.items[item_code].scan_item(
-                INVENTORY_ITEMS[item_code].basic_info, INVENTORY_ITEMS[item_code].offer
-            )
+            self.items[item_code].scan_item(INVENTORY_ITEMS[item_code])
         else:
             raise KeyError(f"Unexpected Item Code : {item_code}")
 
