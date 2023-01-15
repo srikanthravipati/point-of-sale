@@ -34,7 +34,7 @@ class Offer:
         if self.__running:
             print(
                 f"Offer reduction for {self.__n_items} "
-                + f"is : {self.__reduction} Pence"
+                + f"is : {self.__discount} Pence"
             )
 
     @property 
