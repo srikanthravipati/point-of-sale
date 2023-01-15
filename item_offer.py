@@ -1,5 +1,5 @@
 import numpy as np
-from numpy import float64
+from numpy import float64, polyval
 from numpy.typing import NDArray
 
 UINT64_MAX = np.iinfo(np.uint64).max
@@ -55,7 +55,7 @@ class Offer:
 
     def calculate_discount(self, price: float) -> float:
         if self.running:
-            return self.__coeffs[0] * price + self.__coeffs[1]
+            return polyval(self.coeffs, price)
         else:
             return 0.0
 
