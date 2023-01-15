@@ -3,13 +3,13 @@ from typing import Dict
 import numpy as np
 
 from item_basic_info import BasicInfo
-from item_full_info import FullInfo
+from item_info import ItemInfo
 from item_offer import Offer
 
 UINT64_MAX = np.iinfo(np.uint64).max
 
 
-def read_inventory(inventory_file, inventory_items: Dict[str, FullInfo]):
+def read_inventory(inventory_file, inventory_items: Dict[str, ItemInfo]):
     """
     Read information for every item-code in the inventory \n
     and add it to the inventory_items \n
@@ -46,7 +46,11 @@ def read_inventory(inventory_file, inventory_items: Dict[str, FullInfo]):
             offer_coeff_a = float(split_line[3])
             offer_coeff_b = float(split_line[4])
 
-            inventory_items[item_code] = FullInfo(
-                BasicInfo(item_name),
-                Offer(offer_running, offer_n_items, offer_coeff_a, offer_coeff_b),
+            inventory_items[item_code] = ItemInfo(
+                item_name,
+                0.0,
+                offer_running,
+                offer_n_items,
+                offer_coeff_a,
+                offer_coeff_b,
             )

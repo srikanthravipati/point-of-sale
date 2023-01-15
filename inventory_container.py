@@ -1,5 +1,5 @@
 from typing import Dict
 
-from item_full_info import FullInfo
+from item_info import ItemInfo
 
-INVENTORY_ITEMS: Dict[str, FullInfo] = {}
+INVENTORY_ITEMS: Dict[str, ItemInfo] = {}

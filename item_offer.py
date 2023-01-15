@@ -37,7 +37,7 @@ class Offer:
                 + f"is : {self.__discount} Pence"
             )
 
-    @property 
+    @property
     def running(self) -> bool:
         return self.__running
 

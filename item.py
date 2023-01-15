@@ -2,8 +2,7 @@ from typing import Dict
 
 import numpy as np
 
-from item_basic_info import BasicInfo
-from item_offer import Offer
+from item_info import ItemInfo
 
 
 class Item:
@@ -46,11 +45,11 @@ class Item:
     def apply_discount(self, discount: float) -> None:
         self.total -= discount
 
-    def scan_item(self, basic_info: BasicInfo, offer: Offer) -> None:
+    def scan_item(self, item_info: ItemInfo) -> None:
         self.incr_count_by_one()
-        self.add_item_price_to_total(basic_info.price)
-        if offer.is_valid(self.count):
-            self.apply_discount(offer.discount)
+        self.add_item_price_to_total(item_info.price)
+        if item_info.is_valid(self.count):
+            self.apply_discount(item_info.discount)
 
 
 def items_total(items: Dict[str, Item]) -> float:
