@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 from inventory_container import INVENTORY_ITEMS
-from item import Item, items_total
+from user_item import UserItem, user_items_total
 from read_inventory import read_inventory
 
 INVENTORY_FILE_NAME = "inventory.txt"
@@ -30,20 +30,20 @@ def checkout(user_items: List[str], item_price_s: Dict[str, float]) -> float:
     update items[item-code](: Item) __count and __total info
     :return: total
     """
-    items: Dict[str, Item] = {}
+    items: Dict[str, UserItem] = {}
     set_inventory_price_and_discount_s(item_price_s)
 
     for item_code in user_items:
         if item_code in INVENTORY_ITEMS:
 
             if item_code not in items:
-                items[item_code] = Item()
+                items[item_code] = UserItem()
 
             items[item_code].scan_item(INVENTORY_ITEMS[item_code])
         else:
             raise KeyError(f"Unexpected Item Code : {item_code}")
 
-    total = items_total(items)
+    total = user_items_total(items)
     return total
 
 
@@ -53,7 +53,7 @@ class Checkout:
     item-code available in the inventory
     """
 
-    items: Dict[str, Item]
+    items: Dict[str, UserItem]
 
     def __init__(self, item_price_s: Dict[str, float]):
         self.items = {}
@@ -63,11 +63,11 @@ class Checkout:
         if item_code in INVENTORY_ITEMS:
 
             if item_code not in self.items:
-                self.items[item_code] = Item()
+                self.items[item_code] = UserItem()
 
             self.items[item_code].scan_item(INVENTORY_ITEMS[item_code])
         else:
             raise KeyError(f"Unexpected Item Code : {item_code}")
 
     def total(self) -> float:
-        return items_total(self.items)
+        return user_items_total(self.items)
