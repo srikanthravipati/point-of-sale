@@ -1,6 +1,6 @@
 from unittest import main, TestCase
 from unittest.mock import MagicMock, patch
-from sys import float_info
+from pytest import approx
 
 
 user_items = ["B", "A", "B", "P", "B"]
@@ -13,7 +13,8 @@ class TestCheckout(TestCase):
         from checkout import checkout
 
         total = checkout(user_items, item_price_s)
-        self.assertLessEqual(abs(total - 155.0), float_info.epsilon)
+        assert total == approx(155.0)
+        # self.assertLessEqual(abs(total - 155.0), float_info.epsilon)
 
     # version 2.0 thorough testing
     def test_checkout_init(self):
@@ -69,7 +70,7 @@ class TestCheckout(TestCase):
         for item in user_items:
             Checkout_.scan(item)
 
-        self.assertLessEqual(abs(Checkout_.total() - 155.0), float_info.epsilon)
+        assert Checkout_.total() == approx(155.0)
 
 
 if __name__ == "__main__":
