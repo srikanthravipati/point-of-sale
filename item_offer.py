@@ -1,4 +1,6 @@
 import numpy as np
+from numpy import float64, polyval
+from numpy.typing import NDArray
 
 UINT64_MAX = np.iinfo(np.uint64).max
 
@@ -32,7 +34,7 @@ class Offer:
         if self.__running:
             print(
                 f"Offer reduction for {self.__n_items} "
-                + f"is : {self.__reduction} Pence"
+                + f"is : {self.__discount} Pence"
             )
 
     @property 
@@ -44,15 +46,25 @@ class Offer:
         return self.__n_items
 
     @property
+    def coeffs(self) -> NDArray[float64]:
+        return self.__coeffs
+
+    @property
     def discount(self) -> float:
         return self.__discount
 
     def calculate_discount(self, price: float) -> float:
         if self.running:
-            return self.__coeffs[0] * price + self.__coeffs[1]
+            return polyval(self.coeffs, price)
         else:
             return 0.0
 
     @discount.setter
     def discount(self, value: float) -> float:
         self.__discount = value
+
+    def is_valid(self, n_items: np.uint64) -> bool:
+        if not self.running or (self.running and n_items <= 0):
+            return False
+        else:
+            return n_items % self.n_items == 0

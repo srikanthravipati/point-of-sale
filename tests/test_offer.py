@@ -1,5 +1,7 @@
 import unittest
 
+from unittest.mock import PropertyMock, patch
+
 import numpy as np
 from item_offer import Offer
 
@@ -20,6 +22,16 @@ class TestOffer(unittest.TestCase):
         offer = Offer(True, 3, 1.0, 0.0)
         offer.discount = 25.0
         self.assertEqual(offer.discount, 25.0)
+
+    def test_is_valid(self):
+        offer = Offer(True, 3, 3.0, -100.0)
+        with patch(
+            "item_offer.Offer.running", new_callable=PropertyMock
+        ) as mock_discount_running:
+            mock_discount_running.return_value = False
+            assert not offer.is_valid(3)
+        assert offer.is_valid(3)
+        assert not offer.is_valid(1)
 
 
 if __name__ == "__main__":

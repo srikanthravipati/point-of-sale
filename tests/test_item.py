@@ -1,6 +1,6 @@
 import unittest
 
-from item import Item, items_total, offer_eligible
+from item import Item, items_total
 
 
 class TestItem(unittest.TestCase):
@@ -18,13 +18,6 @@ class TestItem(unittest.TestCase):
         item = Item()
         item.add_item_price_to_total(25.0)
         self.assertEqual(item.total, 25.0)
-
-    def test_offer_eligible(self):
-        self.assertFalse(offer_eligible(0, 3))
-        self.assertFalse(offer_eligible(2, 3))
-        self.assertTrue(offer_eligible(3, 3))
-        self.assertFalse(offer_eligible(4, 3))
-        self.assertTrue(offer_eligible(6, 3))
 
     def test_apply_offer(self):
         item = Item()
