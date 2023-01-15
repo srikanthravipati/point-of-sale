@@ -64,10 +64,7 @@ class Offer:
         self.__discount = value
 
     def is_valid(self, n_items: np.uint64) -> bool:
-        if self.running:
-            if n_items <= 0:
-                return False
-            else:
-                return n_items % self.n_items == 0
-        else:
+        if not self.running or (self.running and n_items <= 0):
             return False
+        else:
+            return n_items % self.n_items == 0
