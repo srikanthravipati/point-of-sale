@@ -54,6 +54,6 @@ class UserItem:
 
 def user_items_total(user_items: Dict[str, UserItem]) -> float:
     total = 0.0
-    for item_code in user_items:
-        total += user_items[item_code].total
+    for user_item in user_items.values():
+        total += user_item.total
     return total
