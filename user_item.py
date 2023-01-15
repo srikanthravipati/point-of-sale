@@ -5,7 +5,7 @@ import numpy as np
 from item_info import ItemInfo
 
 
-class Item:
+class UserItem:
     """
     Holds number of items and total price \n
     for user picked items of an item-code \n
@@ -52,8 +52,8 @@ class Item:
             self.apply_discount(item_info.discount)
 
 
-def items_total(items: Dict[str, Item]) -> float:
+def user_items_total(user_items: Dict[str, UserItem]) -> float:
     total = 0.0
-    for item_code in items:
-        total += items[item_code].total
+    for item_code in user_items:
+        total += user_items[item_code].total
     return total
