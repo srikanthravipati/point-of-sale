@@ -56,3 +56,12 @@ class Offer:
     @discount.setter
     def discount(self, value: float) -> float:
         self.__discount = value
+
+    def is_valid(self, n_items: np.uint64) -> bool:
+        if self.running:
+            if n_items <= 0:
+                return False
+            else:
+                return n_items % self.n_items == 0
+        else:
+            return False
