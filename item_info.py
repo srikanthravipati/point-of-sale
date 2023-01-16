@@ -31,4 +31,4 @@ class ItemInfo(BasicInfo, Offer):
 
     def set_price_and_discount(self, price: float) -> None:
         self.price = price
-        self.discount = super(ItemInfo, self).calculate_discount_value(price)
+        self.discount_value = super(ItemInfo, self).calculate_discount_value(price)
