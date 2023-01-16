@@ -1,8 +1,8 @@
 import unittest
-
 from unittest.mock import PropertyMock, patch
 
 import numpy as np
+
 from item_offer import Offer
 
 

@@ -21,7 +21,7 @@ class BasicInfo:
         return self.__name
 
     @name.setter
-    def name(self, value: str) -> str:
+    def name(self, value: str) -> None:
         self.__name = value
 
     @property

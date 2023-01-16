@@ -48,15 +48,15 @@ class Offer:
     def discount_value(self) -> float:
         return self.__discount_value
 
+    @discount_value.setter
+    def discount_value(self, value: float) -> None:
+        self.__discount_value = value
+
     def calculate_discount_value(self, price: float) -> float:
         if self.discount_running:
             return polyval(self.discount_coeffs, price)
         else:
             return 0.0
-
-    @discount_value.setter
-    def discount_value(self, value: float) -> float:
-        self.__discount_value = value
 
     def is_discount_valid(self, n_items: np.uint64) -> bool:
         if not self.discount_running or (self.discount_running and n_items <= 0):
