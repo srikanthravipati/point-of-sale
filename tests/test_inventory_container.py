@@ -29,3 +29,14 @@ def test_update_inventory():
         update_inventory("B", item_b["B"])
         assert ItemInfo.__init__.call_count == 3
         ItemInfo.__init__.assert_called_with("Banana", 0.0, True, 3, 3.0, -100.0)
+
+
+def test_read_inventory_file():
+    with patch("inventory_container.load", MagicMock(return_value={"A": 1, "B" : 2})), patch(
+        "inventory_container.update_inventory", MagicMock()
+    ):
+        from inventory_container import load, read_inventory_file_and_update_inventory, update_inventory
+        read_inventory_file_and_update_inventory('inventory.json')
+        load.assert_called_once()
+        assert update_inventory.call_count == 2
+        update_inventory.assert_called_with("B", 2)
