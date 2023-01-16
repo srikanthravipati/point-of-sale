@@ -42,14 +42,14 @@ class UserItem:
     def add_item_price_to_total(self, unit_price):
         self.total += unit_price
 
-    def apply_discount(self, discount: float) -> None:
-        self.total -= discount
+    def apply_discount(self, discount_value: float) -> None:
+        self.total -= discount_value
 
     def scan(self, item_info: ItemInfo) -> None:
         self.incr_count_by_one()
         self.add_item_price_to_total(item_info.price)
         if item_info.is_discount_valid(self.count):
-            self.apply_discount(item_info.discount)
+            self.apply_discount(item_info.discount_value)
 
 
 def user_items_total(user_items: Dict[str, UserItem]) -> float:
