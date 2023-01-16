@@ -3,16 +3,6 @@ from typing import Dict, List
 from item_info import ItemInfo
 from inventory_container import INVENTORY_ITEMS, set_inventory_price_and_discount_s
 from user_item import UserItem, user_items_total
-from read_inventory import read_inventory
-
-INVENTORY_FILE_NAME = "inventory.txt"
-
-try:
-    inventory_file = open(INVENTORY_FILE_NAME, "r")
-    read_inventory(inventory_file, INVENTORY_ITEMS)
-except FileNotFoundError:
-    print(f"Inventory file {INVENTORY_FILE_NAME} is not found")
-    raise
 
 
 def update_user_items(
