@@ -1,0 +1,21 @@
+{
+    "A": {
+        "NAME": "Apple",
+        "DISCOUNT": {
+            "N_ITEMS": 3,
+            "COEFFS": [1.0, 0.0]
+        }
+    },
+
+    "B": {
+        "NAME": "Banana",
+        "DISCOUNT": {
+            "N_ITEMS": 3,
+            "COEFFS": [3.0, -100.0]
+        }
+    },
+
+    "P": {
+        "NAME": "Pear"
+    }
+}
