@@ -1,4 +1,5 @@
 from numpy import uint64
+
 from item_basic_info import BasicInfo
 from item_offer import Offer
 

@@ -1,7 +1,7 @@
 from typing import Dict, List
 
-from item_info import ItemInfo
 from inventory_container import INVENTORY_ITEMS, set_inventory_price_and_discount_s
+from item_info import ItemInfo
 from user_item import UserItem, user_items_total
 
 
@@ -37,10 +37,8 @@ def checkout(user_item_codes: List[str], item_price_s: Dict[str, float]) -> floa
 
 
 class Checkout:
-    """
-    Holds basket items count and total for each \n
-    item-code available in the inventory
-    """
+    """Holds basket items count and total for each \n item-code available in
+    the inventory."""
 
     def __init__(self, item_price_s: Dict[str, float]):
         self.user_items: Dict[str, UserItem] = {}

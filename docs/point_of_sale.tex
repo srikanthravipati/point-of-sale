@@ -12,13 +12,13 @@
 
 Information about an item-code in the inventory is categorised into the following two classes
 \begin{multicols}{2}
-	
+
 \begin{minted}{python}
 
 class BasicInfo:
-    __name:  str 
+    __name:  str
     __price: float
-     
+
 \end{minted}
 
 \vfill
@@ -29,7 +29,7 @@ class Offer:
     __n_items: np.uint64
     __coeffs: np.ndarray
     __reduction: float
-    
+
 \end{minted}
 
 \end{multicols}
@@ -40,10 +40,10 @@ Among the Offer class members,
 \_\_running is True if there is an offer for the given item-code, or False otherwise.
 }
 \item{\_\_n\_items is the frequency at which the offer becomes eligible}
-\item{\_\_coeffs is a two element array that contains information to effectively 
+\item{\_\_coeffs is a two element array that contains information to effectively
 	apply the offer reduction.
 
-In the given objective, offer or no-offer on item-codes can be casted as 
+In the given objective, offer or no-offer on item-codes can be casted as
 
 \begin{equation}
 \_\_\mathrm{reduction}(p) = \_\_\mathrm{coeffs[0]}\times p+\_\_\mathrm{coeffs[1]})
@@ -56,10 +56,10 @@ where $p$ is the price of an item and \_\_reduction is the value deducted from t
 \begin{center}
 \begin{tabular}{ c c c c c }
  \toprule
- Code & Name & \_\_n\_items & \_\_coeffs[0] & \_\_coeffs[1] \\ 
+ Code & Name & \_\_n\_items & \_\_coeffs[0] & \_\_coeffs[1] \\
  \midrule
  \midrule
- A & Apple & 3 & $1$ & $0$ \\  
+ A & Apple & 3 & $1$ & $0$ \\
  B & Banana & 3 & $3$ & $-100$ \\
  P & Pear & 0 & $0$ & $0$ \\
  \bottomrule
@@ -80,11 +80,11 @@ class FullInfo:
     offer: Offer
 \end{minted}
 
- An empty dictionary 
+ An empty dictionary
   \mint{python}|INVENTORY_ITEMS (: Dict[str, FullInfo]) = {}|
  is instantiated to hold the inventory information, and each row,
  information about an item-code, in \cref{tbl:inventory} is read and added to the dictionary.
- 
+
  \begin{multicols}{2}
  \begin{minted}{python}
 if (__n_items == 0):
@@ -92,8 +92,8 @@ if (__n_items == 0):
 else:
      __running = True
      \end{minted}
-     
-     
+
+
 \vfill
 
 \begin{minted}{python}
@@ -102,11 +102,11 @@ INVENTORY_ITEMS[Code] = FullInfo(
     Offer(__running, __n_items,
           __coeffs[0], __coeffs[1]
     )
- 	
+
  \end{minted}
  \end{multicols}
 
-Note that \_\_price(: BasicInfo) and \_\_reduction(: Offer) are set to $0.0$ by default 
+Note that \_\_price(: BasicInfo) and \_\_reduction(: Offer) are set to $0.0$ by default
 if values are not specified.
 
 When price is known, at a later point, for an item-code, the corresponding item-code price
@@ -121,14 +121,14 @@ class BasicInfo:
 \begin{minted}{python}
 class Offer:
     def set_reduction(self, price: float):
-        self.__reduction = self.__coeffs[0] * price + self.__coeffs[1]	
+        self.__reduction = self.__coeffs[0] * price + self.__coeffs[1]
 \end{minted}
 
 \section{Information about user collected items}
- 
+
 So far the data-structures discussed hold the inventory information.
-The below Item class holds \_\_count (number of items user picked), 
-and \_\_total (total price after applying the offer reductions) 
+The below Item class holds \_\_count (number of items user picked),
+and \_\_total (total price after applying the offer reductions)
 for an item-code.
 
 \begin{minted}{python}
@@ -137,7 +137,7 @@ class Item:
     __total: float
 \end{minted}
 
- An empty dictionary 
+ An empty dictionary
   \mint{python}|items (: Dict[str, Item]) = {}|
  is instantiated to hold the information about user picked items based on item-code.
 
@@ -155,14 +155,14 @@ in the basket based on item-code.
   user\_n\_items(: uint64): Number of items that user has picked so far\;
   offer\_n\_items(: uint64): Frequency at which offer becomes eligible\;
   }
-  
+
  \KwResult{offer\_eligible(: bool)}
-  
+
  \eIf{count is zero}{
  set offer\_eligible to False \;
  }
  {
- set offer\_eligible to True, if count is an exact multiple of offer\_n\_items 
+ set offer\_eligible to True, if count is an exact multiple of offer\_n\_items
 	(user\_n\_items \% offer\_n\_items == 0)\;
  }
 \end{algorithm}
@@ -175,21 +175,21 @@ in the basket based on item-code.
 
  \KwData{items: Item, item\_full\_info: FullInfo}
  \KwResult{Updated items (count and total)}
-  
+
  Increase the scanned item count by one\;
  Increase the scanned item total by it's price\;
  Set offer\_eligible as the \cref{algo:offer-eligibility} return value\;
  \If{offer\_eligible}{
  Reduce the item total by offer reduction\;
  }
- 
+
 \end{algorithm}
 
 
-The total price is obtained by looping over all item-codes in the items dictionary and 
+The total price is obtained by looping over all item-codes in the items dictionary and
 accumulating each item-code total to the total.
 \begin{equation}
 \mathrm{total} = \sum_{\forall i}\mathrm{items}[i].\mathrm{get\_total()}
 \end{equation}
-	
+
 \end{document}
