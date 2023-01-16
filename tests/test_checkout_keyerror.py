@@ -9,7 +9,7 @@ class TestBasicInfo(unittest.TestCase):
 
     def test_Checkout_exception(self):
         Checkout_ = Checkout({"A": 25})
-        self.assertRaises(KeyError, Checkout_.scan_item, "C")
+        self.assertRaises(KeyError, Checkout_.scan, "C")
 
 
 if __name__ == "__main__":

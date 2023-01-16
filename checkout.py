@@ -1,6 +1,7 @@
 from typing import Dict, List
 
-from inventory_container import INVENTORY_ITEMS
+from item_info import ItemInfo
+from inventory_container import INVENTORY_ITEMS, set_inventory_price_and_discount_s
 from user_item import UserItem, user_items_total
 from read_inventory import read_inventory
 
@@ -14,36 +15,34 @@ except FileNotFoundError:
     raise
 
 
-def set_inventory_price_and_discount_s(item_price_s: Dict[str, float]) -> None:
-    """
-    Take price for each item-code from item_price_s \n
-    and set price and reduction for INVENTORY_ITEMS
-    """
-    for item_code in item_price_s:
-        price = item_price_s[item_code]
-        INVENTORY_ITEMS[item_code].set_price_and_discount(price)
+def update_user_items(
+    item_code: str, user_items: Dict[str, UserItem], item_info: ItemInfo
+) -> None:
+    if item_code not in user_items:
+        user_items[item_code] = UserItem()
+    user_items[item_code].scan(item_info)
 
 
-def checkout(user_items: List[str], item_price_s: Dict[str, float]) -> float:
+def item_scanned(item_code: str, user_items: Dict[str, UserItem]) -> None:
+    if item_code in INVENTORY_ITEMS:
+        update_user_items(item_code, user_items, INVENTORY_ITEMS[item_code])
+    else:
+        raise KeyError(f"Unexpected Item Code : {item_code}")
+
+
+def checkout(user_item_codes: List[str], item_price_s: Dict[str, float]) -> float:
     """
     For each distinct item-code in user_items \n
     update items[item-code](: Item) __count and __total info
     :return: total
     """
-    items: Dict[str, UserItem] = {}
+    user_items: Dict[str, UserItem] = {}
     set_inventory_price_and_discount_s(item_price_s)
 
-    for item_code in user_items:
-        if item_code in INVENTORY_ITEMS:
+    for scanned_item_code in user_item_codes:
+        item_scanned(scanned_item_code, user_items)
 
-            if item_code not in items:
-                items[item_code] = UserItem()
-
-            items[item_code].scan_item(INVENTORY_ITEMS[item_code])
-        else:
-            raise KeyError(f"Unexpected Item Code : {item_code}")
-
-    total = user_items_total(items)
+    total = user_items_total(user_items)
     return total
 
 
@@ -53,21 +52,20 @@ class Checkout:
     item-code available in the inventory
     """
 
-    items: Dict[str, UserItem]
-
     def __init__(self, item_price_s: Dict[str, float]):
-        self.items = {}
+        self.user_items: Dict[str, UserItem] = {}
         set_inventory_price_and_discount_s(item_price_s)
 
-    def scan_item(self, item_code: str):
+    def update_user_items(self, item_code: str, item_info: ItemInfo) -> None:
+        if item_code not in self.user_items:
+            self.user_items[item_code] = UserItem()
+        self.user_items[item_code].scan(item_info)
+
+    def scan(self, item_code: str) -> None:
         if item_code in INVENTORY_ITEMS:
-
-            if item_code not in self.items:
-                self.items[item_code] = UserItem()
-
-            self.items[item_code].scan_item(INVENTORY_ITEMS[item_code])
+            self.update_user_items(item_code, INVENTORY_ITEMS[item_code])
         else:
             raise KeyError(f"Unexpected Item Code : {item_code}")
 
     def total(self) -> float:
-        return user_items_total(self.items)
+        return user_items_total(self.user_items)
