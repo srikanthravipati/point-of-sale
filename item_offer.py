@@ -76,10 +76,7 @@ class Offer:
         Arguments:
             price: Item price
         """
-        if self.discount_running:
-            return polyval(self.discount_coeffs, price)
-        else:
-            return 0.0
+        return polyval(self.discount_coeffs, price)
 
     def is_discount_valid(self, n_items: np.uint64) -> bool:
         """Check if discount is valid or not.
