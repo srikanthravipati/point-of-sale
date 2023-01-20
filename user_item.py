@@ -59,7 +59,7 @@ class UserItem:
         self.total -= discount_value
 
     def scan(self, item_info: ItemInfo) -> None:
-        """To upon an item scan.
+        """To do upon an item scan.
 
         | Increase item count by one
         | Add unit item price to total
